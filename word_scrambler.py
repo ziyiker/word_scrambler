@@ -6,11 +6,8 @@ def check_middle_only_one_unique_ch(middle_string):
     """
     This function checks for words with only one unique character in the middle (eg: been, seen, etc.) and hence cannot be scrambled
     """
-    unique_ch = []
-    for ch in middle_string:
-        if ch not in unique_ch:
-            unique_ch.append(ch)
-    if len(unique_ch) == 1:
+    middle_string_letters = set(middle_string)
+    if len(middle_string_letters) == 1:
         return True
     return False
     
@@ -19,13 +16,8 @@ def isolate_punctuations(input_string):
     """
     This isolates the punctuations with whitespaces so that they will not be scrambled by the scramble_word function
     """
-    new_string = ""
-    for ch in input_string:
-        if ch not in punctuation:
-            new_string += ch
-        else:
-            new_string += " " + ch
-    return new_string
+    isolated_punctuations = [ch if ch not in punctuation else " " + ch for ch in input_string]
+    return "".join(isolated_punctuations)
 
 
 def scramble_word(word):
@@ -55,7 +47,7 @@ def scramble(input_string):
     This function takes in a string and scrambles them, keeping the first and last character, and punctuations intact.
     words are assumed to be seperated by whitespaces (excluding punctuations since they will not be touched).
     """
-    scrambled_string = ""
+   scrambled_string = ""
     new_string = isolate_punctuations(input_string)
     word_list = new_string.split()
     scrambled_word_list = []
@@ -75,4 +67,5 @@ def scramble(input_string):
                 scrambled_string += " " + scrambled_words
                 
     return scrambled_string
+
 
